@@ -30,70 +30,63 @@ This exercise reinforces:
 // ============================================
 
 function calculateTotal(price) {
-    discount = 0.1; // ❌ Issue: Missing declaration makes this a global variable
+    discount = 0.1; // ⚠️ Issue: Not declared with let/const/var
     return price - (price * discount);
-}
-
-console.log(calculateTotal(100)); // Expected Output: 90
-console.log(discount); // Outputs 0.1, but shouldn't be accessible globally
-
-// ✅ Task:
-// - Identify the issue: `discount` is not declared with let/const/var
-// - Fix it:
-function calculateTotalFixed(price) {
-    let discount = 0.1; // Declared locally
-    return price - (price * discount);
-}
-
-console.log(calculateTotalFixed(100));
-// console.log(discount); // ❌ ReferenceError if uncommented: discount is not defined
-
-// Explanation: Without declaration, `discount` becomes a global variable (accidental leakage).
-// Adding `let` ensures it's scoped to the function only.
-
-
-// ============================================
-// 🧱 Snippet 2: Block Scope Misunderstanding
-// ============================================
-
-function checkBlockScope() {
+  }
+  
+  console.log(calculateTotal(100));
+  console.log(discount); // Should this be accessible here?
+  
+  // 🛠 Task:
+  // - What is the issue with `discount`?
+  // - Why is this a problem in larger programs?
+  // - How would you fix it using correct scope practices?
+  
+  
+  // ============================================
+  // 🧱 Snippet 2: Block Scope Misunderstanding
+  // ============================================
+  
+  function checkBlockScope() {
     if (true) {
-        var status = "Inside if block"; // 👀 var is function-scoped
+      var status = "Inside if block"; // ⚠️ Using var
     }
-    console.log(status); // Outputs: "Inside if block"
-}
-
-checkBlockScope();
-
-// ✅ Task:
-// - Explain: var is function-scoped, not block-scoped.
-// - Fix using let:
-function checkBlockScopeFixed() {
-    if (true) {
-        let status = "Inside if block"; // ✅ Block-scoped
-        console.log(status); // Now only accessible here
-    }
-    // console.log(status); // ❌ ReferenceError if uncommented
-}
-
-checkBlockScopeFixed();
-
-
-// ============================================
-// 🪞 Snippet 3: Variable Shadowing
-// ============================================
-
-let count = 5;
-
-function shadowExample() {
-    let count = 10; // Shadows outer scope variable
-    console.log(count); // Outputs: 10
-}
-
-shadowExample();
-console.log(count); // Outputs: 5
-
-// ✅ Task:
-// - Explanation:
-//   - Inside the function, the local `count` shadows the global one.
-//   - The outer `count` remains unchanged.
+    console.log(status); // What will this output?
+  }
+  
+  checkBlockScope();
+  
+  // 🛠 Task:
+  // - What do you expect `console.log(status)` to print?
+  // - Why is `var` behaving this way?
+  // - How can you change the code so `status` is block-scoped?
+  
+  
+  // ============================================
+  // 🪞 Snippet 3: Variable Shadowing
+  // ============================================
+  
+  let count = 5;
+  
+  function shadowExample() {
+    let count = 10; // Same variable name in a new scope
+    console.log(count); // What will this log?
+  }
+  
+  shadowExample();
+  console.log(count); // What about this one?
+  
+  // 🛠 Task:
+  // - What is variable shadowing?
+  // - How does the function scope affect the outer variable?
+  // - Does the outer `count` get changed or stay the same?
+  
+  
+  // ============================================
+  // ✏️ Final Reflection
+  // ============================================
+  // After fixing the code:
+  // - Summarize what you've learned about variable scope.
+  // - How does understanding scope help you write more reliable code?
+  // - Where could these issues cause real-world bugs in larger programs?
+  
